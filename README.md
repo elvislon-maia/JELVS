@@ -9,7 +9,7 @@ Componentes:
     - 1x Base para os componentes;
     - 1x Arduino UNO R3;
     - 1x Ponte H;
-    - 1x Sensor intravermelho;
+    - 1x Sensor intravermelho HW-871;
     - 1x Conector de bateria de 9v;
     - 1X Bateria de 9v;
     - 2x Motores com rodas;
