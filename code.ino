@@ -3,6 +3,22 @@ const int sensores[5] = {3, 4, 5, 6, 7};
 const int MEF = 8, MET = 9; // Motor da esquerda
 const int MDF = 10, MDT = 11; // Motor da direita
 
+int ultimaDirecao = 0;
+
+enum DIRECOES{
+  ESQUERDA1,
+  ESQUERDA2,
+  FRENTE,
+  DIREITA1,
+  DIREITA2
+};
+
+enum ULTIMA_DIRECAO{
+  ESQUERDA,
+  RETO,
+  DIREITA
+};
+
 void setup() {
   // Inicializa a comunicação serial para exibir os dados no computador
   Serial.begin(9600);
@@ -36,35 +52,35 @@ void testarSensores(){
 }
 
 void moverFrente(){
-  digitalWrite(MEF, HIGH);
-  digitalWrite(MET, LOW);
+  digitalWrite(MEF, LOW);
+  digitalWrite(MET, HIGH);
 
-  digitalWrite(MDF, HIGH);
-  digitalWrite(MDT, LOW);
+  digitalWrite(MDF, LOW);
+  digitalWrite(MDT, HIGH);
 }
 
 void moverTras(){
-  digitalWrite(MEF, LOW);
-  digitalWrite(MET, HIGH);
-
-  digitalWrite(MDF, LOW);
-  digitalWrite(MDT, HIGH);
-}
-
-void moverEsquerda(){
-  digitalWrite(MEF, LOW);
-  digitalWrite(MET, HIGH);
+  digitalWrite(MEF, HIGH);
+  digitalWrite(MET, LOW);
 
   digitalWrite(MDF, HIGH);
   digitalWrite(MDT, LOW);
 }
 
-void moverDireita(){
+void moverEsquerda(){
   digitalWrite(MEF, HIGH);
   digitalWrite(MET, LOW);
 
   digitalWrite(MDF, LOW);
   digitalWrite(MDT, HIGH);
+}
+
+void moverDireita(){
+  digitalWrite(MEF, LOW);
+  digitalWrite(MET, HIGH);
+
+  digitalWrite(MDF, HIGH);
+  digitalWrite(MDT, LOW);
 }
 
 void pararMotor(){
@@ -76,6 +92,25 @@ void pararMotor(){
 }
 
 void loop() {
+  int frente = digitalRead(sensores[DIRECOES(FRENTE)]);
+  int esquerda1 = digitalRead(sensores[DIRECOES(ESQUERDA1)]);
+  int esquerda2 = digitalRead(sensores[DIRECOES(ESQUERDA2)]);
+  int direita1 = digitalRead(sensores[DIRECOES(DIREITA1)]); 
+  int direita2 = digitalRead(sensores[DIRECOES(DIREITA2)]);
+
+  if(frente == HIGH && esquerda1 == LOW && esquerda2 == LOW && direita1 == LOW && direita2 == LOW){
+    moverFrente();
+  }
+  else if(esquerda1 == HIGH || esquerda2 == HIGH){
+    moverEsquerda();
+  }
+  else if(direita1 == HIGH || direita2 == HIGH){
+    moverDireita();
+  }
+  else{
+    pararMotor();
+  }
+  /*
   moverFrente();
   delay(1000);
   moverDireita();
@@ -86,4 +121,5 @@ void loop() {
   delay(1000);
   pararMotor();
   delay(1000);
+  */
 }
