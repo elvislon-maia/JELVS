@@ -14,9 +14,9 @@ enum DIRECOES{
 };
 
 enum ULTIMA_DIRECAO{
-  ESQUERDA,
-  RETO,
-  DIREITA
+  ESQUERDA = 1,
+  RETO = 2,
+  DIREITA = 3
 };
 
 void setup() {
@@ -100,26 +100,29 @@ void loop() {
 
   if(frente == HIGH && esquerda1 == LOW && esquerda2 == LOW && direita1 == LOW && direita2 == LOW){
     moverFrente();
+    ultimaDirecao = ULTIMA_DIRECAO(RETO);
   }
   else if(esquerda1 == HIGH || esquerda2 == HIGH){
     moverEsquerda();
+    ultimaDirecao = ULTIMA_DIRECAO(ESQUERDA);
   }
   else if(direita1 == HIGH || direita2 == HIGH){
     moverDireita();
+    ultimaDirecao = ULTIMA_DIRECAO(DIREITA);
   }
   else{
+    if(ultimaDirecao = ULTIMA_DIRECAO(RETO)){
+      moverTras();
+      delay(120);
+    }
+    else if(ultimaDirecao = ULTIMA_DIRECAO(ESQUERDA)){
+      moverEsquerda();
+      delay(120);
+    }
+    else if(ultimaDirecao = ULTIMA_DIRECAO(DIREITA)){
+      moverDireita();
+      delay(120);
+    }
     pararMotor();
   }
-  /*
-  moverFrente();
-  delay(1000);
-  moverDireita();
-  delay(1000);
-  moverEsquerda();
-  delay(1000);
-  moverTras();
-  delay(1000);
-  pararMotor();
-  delay(1000);
-  */
 }
