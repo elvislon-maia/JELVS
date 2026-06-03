@@ -3,6 +3,7 @@ const int sensores[5] = {3, 4, 5, 6, 7};
 const int MEF = 8, MET = 9; // Motor da esquerda
 const int MDF = 10, MDT = 11; // Motor da direita
 
+// Variável para guardar a ultima direção do robo, ditada pelo enumerador "ULTIMA_DIRECAO"
 int ultimaDirecao = 0;
 
 enum DIRECOES{
@@ -36,6 +37,7 @@ void setup() {
 }
 
 void testarSensores(){
+  // Função para teste dos sensores
   Serial.println("--- Teste dos sensores do robô seguidor de linha JELVS iniciado---");
   Serial.println("Formatacao: [S1] [S2] [S3] [S4] [S5]"); 
   delay(2000);
@@ -51,6 +53,7 @@ void testarSensores(){
   delay(250);
 }
 
+// Funções responsaveis por controlar a movimentação do robô por meio da direção de rotação dos motores
 void moverFrente(){
   digitalWrite(MEF, LOW);
   digitalWrite(MET, HIGH);
@@ -92,24 +95,29 @@ void pararMotor(){
 }
 
 void loop() {
+  // Variáveis que guardam o estado atual de cada sensor
   int frente = digitalRead(sensores[DIRECOES(FRENTE)]);
   int esquerda1 = digitalRead(sensores[DIRECOES(ESQUERDA1)]);
   int esquerda2 = digitalRead(sensores[DIRECOES(ESQUERDA2)]);
   int direita1 = digitalRead(sensores[DIRECOES(DIREITA1)]); 
   int direita2 = digitalRead(sensores[DIRECOES(DIREITA2)]);
 
+  // Se apenas o sensor do meio estiver detectando, move para frente
   if(frente == HIGH && esquerda1 == LOW && esquerda2 == LOW && direita1 == LOW && direita2 == LOW){
     moverFrente();
     ultimaDirecao = ULTIMA_DIRECAO(RETO);
   }
+  // Se um dos sensores da esquerda estiverem detectando, move para esquerda
   else if(esquerda1 == HIGH || esquerda2 == HIGH){
     moverEsquerda();
     ultimaDirecao = ULTIMA_DIRECAO(ESQUERDA);
   }
+  // Se um dos sensores da direita estiverem detectando, move para direita
   else if(direita1 == HIGH || direita2 == HIGH){
     moverDireita();
     ultimaDirecao = ULTIMA_DIRECAO(DIREITA);
   }
+  // Condição para evitar que o robo pare de andar ao sair da linha
   else{
     if(ultimaDirecao = ULTIMA_DIRECAO(RETO)){
       moverTras();
