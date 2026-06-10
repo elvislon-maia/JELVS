@@ -15,4 +15,5 @@ Repositório do projeto do robô seguidor de linha para avaliação instituciona
 - 2x Motores com rodas;
 
 ## Para fazer:
-- Código extra de movimentação casosensor do meio
+- Código extra de movimentação caso sensor do meio e o esquerda1/direita1 estejam detectando linha;
+- Controle de velocidade.
