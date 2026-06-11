@@ -103,9 +103,19 @@ void loop() {
   int direita2 = digitalRead(sensores[DIRECOES(DIREITA2)]);
 
   // Se apenas o sensor do meio estiver detectando, move para frente
-  if(frente == HIGH && esquerda1 == LOW && esquerda2 == LOW && direita1 == LOW && direita2 == LOW){
-    moverFrente();
-    ultimaDirecao = ULTIMA_DIRECAO(RETO);
+  if(frente == HIGH){
+    if(esquerda1 == HIGH && direita1 == HIGH){
+      moverFrente();
+      ultimaDirecao = ULTIMA_DIRECAO(RETO);
+    }
+    else if(esquerda1 == HIGH){
+      moverEsquerda();
+      ultimaDirecao = ULTIMA_DIRECAO(ESQUERDA);
+    }
+    else{
+      moverDireita();
+      ultimaDirecao = ULTIMA_DIRECAO(DIREITA);
+    }
   }
   // Se um dos sensores da esquerda estiverem detectando, move para esquerda
   else if(esquerda1 == HIGH || esquerda2 == HIGH){
