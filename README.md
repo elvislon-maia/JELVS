@@ -13,3 +13,7 @@ Repositório do projeto do robô seguidor de linha para avaliação instituciona
 - 1x Conector de bateria de 9v;
 - 1X Bateria de 9v;
 - 2x Motores com rodas;
+
+## Para fazer:
+- Código extra de movimentação caso sensor do meio e o esquerda1/direita1 estejam detectando linha;
+- Controle de velocidade.
