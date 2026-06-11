@@ -112,9 +112,13 @@ void loop() {
       moverEsquerda();
       ultimaDirecao = ULTIMA_DIRECAO(ESQUERDA);
     }
-    else{
+    else if(direita1 == HIGH){
       moverDireita();
       ultimaDirecao = ULTIMA_DIRECAO(DIREITA);
+    }
+    else{
+      moverFrente();
+      ultimaDirecao = ULTIMA_DIRECAO(RETO);
     }
   }
   // Se um dos sensores da esquerda estiverem detectando, move para esquerda
